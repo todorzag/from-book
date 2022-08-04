@@ -1,4 +1,6 @@
-﻿namespace Problem13
+﻿using System.Text;
+
+namespace Problem13
 {
     internal class Program
     {
@@ -9,14 +11,25 @@
               coefficients, for example: (3x2 + x - 3) + (x - 1) = (3x2 + 2x - 4).
              */
 
-
             string input = Console.ReadLine();
 
-            string[] polynomialsString = input.Split(new string[] { "(", ")" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] polynomialsString = input.Split(
+                new string[] { "(", ")" },
+                StringSplitOptions.RemoveEmptyEntries);
 
             List<int[]> ints = PolynomialsToArray(polynomialsString);
 
-            int[] sum = CalculateSum(ints);
+            int[] polynomial1 = ints[0];
+            int[] polynomial2 = ints[1];
+
+            int max = Math.Max(
+                polynomial1.Length,   
+                polynomial2.Length);
+
+            int[] sum = new int[max];
+
+            CalculateSum(sum, polynomial1);
+            CalculateSum(sum, polynomial2);
 
             Console.WriteLine(ReturnPolynomialString(sum));
         }
@@ -61,48 +74,33 @@
             return ints.ToArray();
         }
 
-        public static int[] CalculateSum(List<int[]> ints)
+        public static void CalculateSum(int[] sum, int[] polynomial)
         {
-            int[] polynomial1 = ints[0];
-            int[] polynomial2 = ints[1];
-
-            int max = Math.Max(polynomial1.Length, polynomial2.Length);
-            int[] sum = new int[max];
-
-            for (int i = 0; i < polynomial1.Length; i++)
+            for (int i = 0; i < polynomial.Length; i++)
             {
-                sum[i] = polynomial1[i];
+                if (sum[i] == 0)
+                {
+                    sum[i] = polynomial[i];
+                }
+                else
+                {
+                    sum[i] += polynomial[i];
+                }
             }
-
-            for (int i = 0; i < polynomial2.Length; i++)
-            {
-                sum[i] += polynomial2[i];
-            }
-
-            return sum;
         }
 
         public static string ReturnPolynomialString(int[] polynomial)
         {
-            string result = "";
+            StringBuilder result = new StringBuilder();
 
             for (int i = polynomial.Length - 1; i >= 0; i--)
             {
                 if (polynomial[i] != 0)
                 {
-                    result += ReturnIndividualString(polynomial, i);
+                    result.Append(ReturnIndividualString(polynomial, i));
 
-                    if (i != 0)
-                    {
-                        if (polynomial[i - 1] > 0)
-                        {
-                            result += " + ";
-                        }
-                        else if (polynomial[i - 1] > 0)
-                        {
-                            result += " - ";
-                        }
-                    }
+                    result.Append(AddOperator(polynomial, i));
+
                 }  
             }
 
@@ -116,33 +114,38 @@
                 polynomial[i] *= -1;
             }
 
-            if (i > 1)
+            switch (i)
             {
-                if (polynomial[i] == 1)
-                {
-                    return $"x{i}";
-                }
-                else
-                {
-                    return $"{polynomial[i]}x{i}";
-                }
+                case 0:
+                    return $"{polynomial[i]}";
 
+                case 1:
+                    return polynomial[i] == 1 ? 
+                        $"x" : 
+                        $"{polynomial[i]}x";
+
+                default:
+                    return polynomial[i] == 1 ? 
+                        $"x{i}" : 
+                        $"{polynomial[i]}x{i}";
             }
-            else if (i == 1)
+        }
+
+        public static string AddOperator(int[] polynomial, int i)
+        {
+            if (i != 0)
             {
-                if (polynomial[i] == 1)
+                if (polynomial[i - 1] > 0)
                 {
-                    return $"x";
+                    return " + ";
                 }
-                else
+                else if (polynomial[i - 1] < 0)
                 {
-                    return $"{polynomial[i]}x";
+                    return " - ";
                 }
             }
-            else
-            {
-                return $"{polynomial[i]}";
-            }
+
+            return string.Empty;
         }
     }
 }
