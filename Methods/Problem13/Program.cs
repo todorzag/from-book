@@ -120,14 +120,14 @@ namespace Problem13
                     return $"{polynomial[i]}";
 
                 case 1:
-                    return polynomial[i] == 1 ? 
-                        $"x" : 
-                        $"{polynomial[i]}x";
+                    return polynomial[i] == 1 
+                        ? $"x"
+                        : $"{polynomial[i]}x";
 
                 default:
-                    return polynomial[i] == 1 ? 
-                        $"x{i}" : 
-                        $"{polynomial[i]}x{i}";
+                    return polynomial[i] == 1
+                        ? $"x{i}"  
+                        : $"{polynomial[i]}x{i}";
             }
         }
 
