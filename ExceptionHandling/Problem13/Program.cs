@@ -6,6 +6,8 @@ namespace Problem13
     {
         static void Main(string[] args)
         {
+            // Write a program to download a file from Internet by given URL
+
             string url = Console.ReadLine();
             string[] fileName = url.Split("/");
 

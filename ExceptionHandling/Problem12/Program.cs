@@ -4,6 +4,14 @@
     {
         static void Main(string[] args)
         {
+            /*
+            Write a program that gets from the user the full path to a file (for
+            example C:\Windows\win.ini), reads the content of the file and prints it
+            to the console. Find in MSDN how to us the System.IO.File.
+            ReadAllText(…) method. Make sure all possible exceptions will be
+            caught and a user-friendly message will be printed on the console.
+            */
+
             string filePath = Console.ReadLine();
 
             try
