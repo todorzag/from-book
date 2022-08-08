@@ -16,14 +16,23 @@ namespace Problem26
 
         static void Main(string[] args)
         {
+            /*
+            Write a program that extracts all the text without any tags and
+            attribute values from an HTML document.
+            */
+
             Console.WriteLine(ExtractText(html));
         }
 
         static string ExtractText(string html)
         {
-            html = Regex.Replace(html, "(<.*?>)", String.Empty);
+            html = Regex.Replace(html, "(<.*?>)", " ");
 
-            return html;
+            string[] split = 
+                html.Replace("\r\n"," ")
+                .Split(" ", StringSplitOptions.RemoveEmptyEntries);
+
+            return String.Join(" ", split);
         }
 
     }

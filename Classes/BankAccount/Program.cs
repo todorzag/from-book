@@ -12,7 +12,7 @@
 
             BankAccount account = new BankAccount(name, initialBalance);
 
-            MakeTransaction(account);
+            TransactionHandler(account);
 
             Console.WriteLine(account.GetAccountHistory());
         }
@@ -34,9 +34,11 @@
             return amount;
         }
 
-        private static void MakeTransaction(BankAccount account)
+        private static void TransactionHandler(BankAccount account)
         {
             Console.WriteLine("What kind of transaction would you like to make?");
+            Console.WriteLine("Deposit or Withdrawal?");
+
             string transactionType = Console.ReadLine();
             ValidateTransactionType(transactionType);
 
@@ -46,11 +48,11 @@
 
             switch (transactionType)
             {
-                case "deposit":
+                case "Deposit":
                     account.MakeDeposit(amount, DateTime.Now, note);
                     break;
 
-                case "withdrawal":
+                case "Withdrawal":
                     account.MakeWithdrawal(amount, DateTime.Now, note);
                     break;
             }
@@ -61,8 +63,8 @@
 
             switch (answer)
             {
-                case "yes":
-                    MakeTransaction(account);
+                case "Yes":
+                    TransactionHandler(account);
                     break;
             }
         }
@@ -77,9 +79,10 @@
 
         private static string ValidateTransactionType(string transactionType)
         {
-            if (transactionType != "deposit" && transactionType != "withdrawal")
+            if (transactionType != "Deposit" && transactionType != "Withdrawal")
             {
                 Console.WriteLine("Please enter valid transaction type!");
+                Console.WriteLine("Deposit or Withdrawal");
 
                 transactionType = Console.ReadLine();
                 ValidateTransactionType(transactionType);
