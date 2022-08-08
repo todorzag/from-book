@@ -49,11 +49,11 @@
             switch (transactionType)
             {
                 case "Deposit":
-                    account.MakeDeposit(amount, DateTime.Now, note);
+                    account.MakeDeposit(amount, note);
                     break;
 
                 case "Withdrawal":
-                    account.MakeWithdrawal(amount, DateTime.Now, note);
+                    account.MakeWithdrawal(amount, note);
                     break;
             }
 
@@ -89,6 +89,17 @@
             }
 
             return transactionType;
+        }
+
+        private static (string, decimal) GetUserInfo()
+        {
+            Console.WriteLine("Please enter user name:");
+            string name = Console.ReadLine();
+
+            Console.WriteLine("Please enter initial balance:");
+            decimal initialBalance = decimal.Parse(Console.ReadLine());
+
+            return (name, initialBalance);
         }
     }
 }

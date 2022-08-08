@@ -13,7 +13,7 @@ namespace BankAccount
         public string Note { get; }
         public string Type { get; }
 
-        public Transaction(decimal amount, DateTime date,string type, string note)
+        public Transaction(decimal amount, DateTime date, string type, string note)
         {
             Amount = amount;
             Date = date;
