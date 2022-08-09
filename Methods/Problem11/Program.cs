@@ -82,10 +82,7 @@
 
         public static string ReverseIntegarNumberOrder()
         {
-            Console.WriteLine("Please enter integar to reverse:");
-            string integar = Console.ReadLine();
-
-            ValidateIntegarRange(integar);
+            string integar = ValidateIntegarRange();
 
             return new string 
                 (integar
@@ -94,44 +91,52 @@
                 .ToArray());
         }
 
-        public static void ValidateIntegarRange(string integar)
+        public static string ValidateIntegarRange()
         {
+            Console.WriteLine("Please enter integar to reverse:");
+            string integar = Console.ReadLine();
+
             int n = int.Parse(integar);
 
             if (!(1 <= n && n <= 50000000))
             {
                 Console.WriteLine("Integar not in correct Range!");
-                ReverseIntegarNumberOrder();
+                integar = ValidateIntegarRange();
             }
+
+            return integar;
 
         }
 
         // If input is directly an array validate's if(array.Lenght == 0)
         public static double CalculateAverageOfSequence()
         {
-            Console.WriteLine("Please enter sequence of numbers:");
-            string sequence = Console.ReadLine();
+            string sequence = ValidateSequence(); ;
+
             int[] sequenceArray = Array.ConvertAll(sequence.Split(","), el => int.Parse(el));
 
             return sequenceArray.Average();
         }
 
-        public static void ValidateSequence(string sequence)
+        public static string ValidateSequence()
         {
+            Console.WriteLine("Please enter sequence of numbers:");
+            string sequence = Console.ReadLine();
+
             string[] split = sequence.Split(",");
 
             if (split.Contains(" "))
             {
                 Console.WriteLine("Sequence contains empty elements!");
-                CalculateAverageOfSequence();
+                sequence = ValidateSequence();
             }
+
+            return sequence;
         }
 
         public static double LinearEquation()
-        {
-            Console.WriteLine("Please enter coefficient a:");
-            double a = int.Parse(Console.ReadLine());
-            ValidateCoefficient(a);
+        {    
+            double a = ValidateCoefficient();
 
             Console.WriteLine("Please enter coefficient b:");
             double b = int.Parse(Console.ReadLine());
@@ -139,13 +144,18 @@
             return b / a;
         }
 
-        public static void ValidateCoefficient(double a)
+        public static double ValidateCoefficient()
         {
+            Console.WriteLine("Please enter coefficient a:");
+            double a = int.Parse(Console.ReadLine());
+
             if (a == 0)
             {
                 Console.WriteLine("Invalid input 'a' must be a non-zero!");
-                LinearEquation();
+                a = ValidateCoefficient();
             }
+
+            return a;
         }
     }
 }
