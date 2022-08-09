@@ -11,9 +11,12 @@
 
             for (int i = 1; i <= n; i++)
             {
-                int index = GetRandomIndex(array);
-                array[index] = i;
+                array[i] = i;
             }
+
+            int[] randomisedArray = array
+                .OrderBy(x => random.Next())
+                .ToArray();
 
             PrintArray(array);
         }
@@ -24,20 +27,6 @@
             {
                 Console.Write(i + " ");
             }
-        }
-
-        public static int GetRandomIndex(int[] array)
-        {
-            Random random = new Random();
-
-            int index = random.Next(0, array.Length);
-
-            if (array[index] != 0)
-            {
-                index = GetRandomIndex(array);
-            }
-
-            return index;
         }
     }
 }

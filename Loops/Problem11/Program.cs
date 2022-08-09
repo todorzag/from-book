@@ -21,13 +21,8 @@ namespace Problem11
         public static int GetFactoriel(int n)
         {
             int fact = 1;
-            while (true)
+            while (n != 1)
             {
-                if (n == 1)
-                {
-                    break;
-                }
-
                 fact *= n;
                 n--;
             }
@@ -40,16 +35,15 @@ namespace Problem11
             string factorielString = factoriel.ToString();
             int counter = 0;
 
-            for (int x = factorielString.Length; x > 0; x--)
+            for (int x = factorielString.Length - 1; x > 0; x--)
             {
-                if (factorielString[x - 1] == '0')
+                if (factorielString[x] == '0')
                 {
                     counter++;
                 }
-
-                if (factorielString[x - 1] != '1')
+                else
                 {
-                    return counter;
+                    break;
                 }
             }
 
