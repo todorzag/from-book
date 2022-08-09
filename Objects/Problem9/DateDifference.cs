@@ -10,8 +10,16 @@ namespace Problem9
     {
         static private List<DateTime> holidays = new List<DateTime>
         {
+            new DateTime(2022, 8, 16),
             new DateTime(2022, 9, 6),
             new DateTime(2022, 10, 31)
+        };
+
+        static private List<DateTime> workingSaturdays = new List<DateTime>
+        {
+            new DateTime(2022, 8, 27),
+            new DateTime(2022, 8, 13),
+            new DateTime(2022, 9, 3),
         };
 
         public DateTime StartingDate { get; set; }
@@ -31,14 +39,17 @@ namespace Problem9
         {
             while (StartingDate.Date != EndingDate.Date)
             {
-                if (StartingDate.DayOfWeek != DayOfWeek.Sunday 
-                    && StartingDate.DayOfWeek != DayOfWeek.Saturday)
+                if (workingSaturdays.Contains(StartingDate.Date))
                 {
                     Days++;
                 }
-                else if (holidays.Contains(StartingDate.Date))
+                else if (StartingDate.DayOfWeek != DayOfWeek.Sunday
+                    && StartingDate.DayOfWeek != DayOfWeek.Saturday)
                 {
-                    Days++;
+                    if (!holidays.Contains(StartingDate.Date))
+                    {
+                        Days++;
+                    }
                 }
 
                 StartingDate = StartingDate.AddDays(1);
