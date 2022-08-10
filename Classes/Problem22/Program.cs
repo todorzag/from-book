@@ -23,22 +23,20 @@
             school.PrintSchoolInfo();
         }
 
-        public static void ValidateAndAddStudent(int studentNumber,
+        public static bool ValidateStudent(int studentNumber,
             string studentName,
             List<Student> students)
         {
             Student student = students
                 .Find(student => student.NumberInClass == studentNumber);
 
-            if (student == null)
-            {
-                students.Add(new Student(studentNumber, studentName));
-            }
-            else
+            if (student != null)
             {
                 Console.WriteLine("Number already taken!");
+                return false;
             }
 
+            return true;
         }
 
         public static void AddTeacherToClass
@@ -65,7 +63,10 @@
                 string studentName = split[0];
                 int studentNumber = int.Parse(split[1]);
 
-                ValidateAndAddStudent(studentNumber, studentName, students);
+                if (ValidateStudent(studentNumber, studentName, students))
+                {
+                    students.Add(new Student(studentNumber, studentName);
+                }
 
                 line = Console.ReadLine();
             }
