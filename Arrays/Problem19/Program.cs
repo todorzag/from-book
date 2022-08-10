@@ -27,24 +27,6 @@
                     }
                 }
             }
-
-            // PrintResult(primes);
-        }
-
-        // Added just for testing
-        public static void PrintResult(bool[] primes)
-        {
-            List<int> result = new List<int>();
-
-            for (int i = 2; i < primes.Length; i++)
-            {
-                if (primes[i])
-                {
-                    result.Add(i);
-                }
-            }
-
-            Console.WriteLine(String.Join(", ", result));
         }
     }
 }
