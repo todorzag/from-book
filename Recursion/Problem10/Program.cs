@@ -4,7 +4,7 @@
     {
         /*
           You are given a matrix with passable and impassable cells. Write a
-          recursive program that finds all paths between two cells in the matrix.
+          recursive program that finds all paths between two cells in the matrix. 1
          */
 
         static char[,] lab =
