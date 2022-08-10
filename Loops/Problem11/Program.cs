@@ -33,21 +33,9 @@ namespace Problem11
         public static int GetNumberOfZerosAtEnd(int factoriel)
         {
             string factorielString = factoriel.ToString();
-            int counter = 0;
+            string withoutZeros = factorielString.TrimEnd('0');
 
-            for (int x = factorielString.Length - 1; x > 0; x--)
-            {
-                if (factorielString[x] == '0')
-                {
-                    counter++;
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            return counter;
+            return factorielString.Length - withoutZeros.Length;
         }
     }
 }
