@@ -16,13 +16,13 @@
             {' ', ' ', ' ', ' ', ' ', ' ', 'e'},
         };
 
-        static string[] path =
-            new string[lab.GetLength(0) * lab.GetLength(1)];
+        static List<string> path =
+            new List<string>();
         static int position = 0;
 
         static void Main(string[] args)
         {
-            FindPath(0, 0, "T");
+            FindPath(0, 0, " ");
         }
 
         static void FindPath(int row, int col, string direction)
@@ -32,16 +32,18 @@
                 return;
             }
 
-            path[position] = direction;
-            position++;
+            path.Add(direction);
 
             if (lab[row, col] == 'e')
             {
                 Console.WriteLine("Exit Found!");
-                PrintPath(path, 1, position - 1);
-            }
 
-            if (lab[row, col] == ' ')
+                Console.Write("Path Taken:");
+                path.ForEach(x => Console.Write(x));
+
+                Console.WriteLine();
+            }
+            else if (lab[row, col] == ' ')
             {
                 lab[row, col] = 's';
 
@@ -53,17 +55,7 @@
                 lab[row, col] = ' ';
             }
 
-            position--;
-        }
-
-        static void PrintPath(string[] path, int startPos, int endPos)
-        {
-            Console.Write("Path Taken:");
-            for (int i = startPos; i < endPos; i++)
-            {
-                Console.Write(path[i]);
-            }
-            Console.WriteLine();
+            path.RemoveAt(path.Count - 1);
         }
     }
 }
