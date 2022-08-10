@@ -16,14 +16,12 @@ namespace Problem24
 
             StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.Append(input[0]);
-
             for (int i = 1; i < input.Length; i++)
             {
-                if (input[i - 1] != input[i])
+                if (input[i - 1] != input[i] || i - 1 == 0)
                 {
                     stringBuilder.Append(input[i]);
-                }
+                } 
             }
 
             Console.WriteLine(stringBuilder.ToString());
