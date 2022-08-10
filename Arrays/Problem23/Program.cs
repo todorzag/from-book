@@ -14,55 +14,29 @@
             int n = int.Parse(Console.ReadLine());
             int k = int.Parse(Console.ReadLine());
 
-            int[] result = Enumerable.Repeat(1, k).ToArray();
-            HashSet<string> set = new HashSet<string>();
+            int[] array = Enumerable.Repeat(1, k).ToArray();
 
-            set.Add(Stringify(result));
-
-            for (int i = k - 1; i > 0; i--)
+            for (int i = n - 1; i > 0; i--)
             {
-                set = IterateElements(set, result, i, n);
+                if (i != n - 1)
+                {
+                    array[i - 1]++;
+                }
+
+                while (array[i - 1] <= n)
+                {
+                    Console.WriteLine(String.Join(", ", array));
+                    array[i]++;
+
+                    if (array[i] > n)
+                    {
+                        array[i] = 1;
+                        array[i - 1]++;
+                    }
+                }
+
+                array = Enumerable.Repeat(1, k).ToArray();
             }
-
-            PrintSet(set);
-        }
-
-        public static void PrintSet(HashSet<string> set)
-        {
-            foreach (string result in set)
-            {
-                Console.WriteLine($"{{{result}}}");
-            }
-        }
-
-        public static HashSet<string> IterateElements(HashSet<string> set, int[] result, int i, int n)
-        {
-
-            for (int j = 1; j < n; j++)
-            {
-                result[i]++;
-                set.Add(Stringify(result));
-            }
-
-            if (result[i - 1] < n)
-            {
-                result[i - 1]++;
-                result[i] = 1;
-
-                set.Add(Stringify(result));
-
-                set = IterateElements(set, result, i, n);
-            }
-
-            result[i - 1] = 1;
-            result[i] = 1;
-
-            return set;
-        }
-
-        public static string Stringify(int[] result)
-        {
-            return String.Join(", ", result);
         }
     }
 }
