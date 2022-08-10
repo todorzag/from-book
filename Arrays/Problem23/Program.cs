@@ -7,7 +7,7 @@
             /*
              Write a program, which reads the integer numbers N and K from the
              console and prints all variations of K elements of the numbers in the
-             interval [1…N].
+             interval [1…N]. Test
              */
 
 
