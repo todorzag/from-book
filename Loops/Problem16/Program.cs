@@ -9,20 +9,20 @@
 
             Random random = new Random();
 
-            for (int i = 1; i <= n; i++)
+            for (int i = 0; i < n; i++)
             {
-                array[i] = i;
+                array[i] = i + 1;
             }
 
-            int[] randomisedArray = array
-                .OrderBy(x => random.Next())
-                .ToArray();
+            for (int i = 0; i < array.Length / 2; i++)
+            {
+                int index1 = random.Next(array.Length);
 
-            PrintArray(array);
-        }
+                int temp = array[index1];
+                array[index1] = array[i];
+                array[i] = temp;
+            }
 
-        public static void PrintArray(int[] array)
-        {
             foreach (int i in array)
             {
                 Console.Write(i + " ");

@@ -15,16 +15,10 @@
                 stack.Push(remainder);
             }
 
-            PrintBinary(stack);
-        }
-
-        public static void PrintBinary(Stack<int> stack)
-        {
             foreach (int i in stack)
             {
                 Console.Write(i);
             }
         }
-
     }
 }
