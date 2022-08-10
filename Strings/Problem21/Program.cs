@@ -13,7 +13,7 @@ namespace Problem21
 
             string[] text = Console.ReadLine().Split(" ");
 
-            StringBuilder result = new StringBuilder();
+            string result = string.Empty;
 
             foreach (string line in text)
             {
@@ -21,12 +21,11 @@ namespace Problem21
 
                 if (line.ToLower() == reversed.ToLower())
                 {
-                    result.Append(line);
-                    result.Append(" ");
+                    result += $"{line} ";
                 }
             }
 
-            Console.WriteLine(result.ToString());
+            Console.WriteLine(result);
         }
     }
 }
