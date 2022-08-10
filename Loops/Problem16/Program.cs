@@ -17,11 +17,10 @@
             for (int i = 0; i < array.Length / 2; i++)
             {
                 int index1 = random.Next(array.Length);
-                int index2 = random.Next(array.Length);
 
                 int temp = array[index1];
-                array[index1] = array[index2];
-                array[index2] = temp;
+                array[index1] = array[i];
+                array[i] = temp;
             }
 
             foreach (int i in array)
