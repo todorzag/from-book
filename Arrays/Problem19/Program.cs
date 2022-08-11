@@ -27,6 +27,11 @@
                     }
                 }
             }
+
+            // - 2 Because of 0 and 1
+            int primesCount = primes.Sum(x => x ? 1 : 0) - 2;
+
+            Console.WriteLine($"There are {primesCount} primes from 0 to 1,000,000");
         }
     }
 }
