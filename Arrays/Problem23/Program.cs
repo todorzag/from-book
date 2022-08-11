@@ -2,67 +2,38 @@
 {
     internal class Program
     {
+        public static int n;
+
         static void Main(string[] args)
         {
             /*
              Write a program, which reads the integer numbers N and K from the
              console and prints all variations of K elements of the numbers in the
-             interval [1…N].
+             interval [1…N]. Test
              */
 
-
-            int n = int.Parse(Console.ReadLine());
+            n = int.Parse(Console.ReadLine());
             int k = int.Parse(Console.ReadLine());
 
-            int[] result = Enumerable.Repeat(1, k).ToArray();
-            HashSet<string> set = new HashSet<string>();
+            int[] array = new int[k];
 
-            set.Add(Stringify(result));
-
-            for (int i = k - 1; i > 0; i--)
-            {
-                set = IterateElements(set, result, i, n);
-            }
-
-            PrintSet(set);
+            Rect(0, array);
         }
 
-        public static void PrintSet(HashSet<string> set)
+        public static void Rect(int index, int[] array)
         {
-            foreach (string result in set)
+            if (index != array.Length)
             {
-                Console.WriteLine($"{{{result}}}");
+                for (int i = 1; i <= n; i++)
+                {
+                    array[index] = i;
+                    Rect(index + 1, array);
+                }
             }
-        }
-
-        public static HashSet<string> IterateElements(HashSet<string> set, int[] result, int i, int n)
-        {
-
-            for (int j = 1; j < n; j++)
+            else
             {
-                result[i]++;
-                set.Add(Stringify(result));
+                Console.WriteLine(String.Join(", ", array));
             }
-
-            if (result[i - 1] < n)
-            {
-                result[i - 1]++;
-                result[i] = 1;
-
-                set.Add(Stringify(result));
-
-                set = IterateElements(set, result, i, n);
-            }
-
-            result[i - 1] = 1;
-            result[i] = 1;
-
-            return set;
-        }
-
-        public static string Stringify(int[] result)
-        {
-            return String.Join(", ", result);
         }
     }
 }
