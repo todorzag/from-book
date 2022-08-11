@@ -2,6 +2,8 @@
 {
     internal class Program
     {
+        public static int n;
+
         static void Main(string[] args)
         {
             /*
@@ -10,23 +12,22 @@
              interval [1…N]. Test
              */
 
-
-            int n = int.Parse(Console.ReadLine());
+            n = int.Parse(Console.ReadLine());
             int k = int.Parse(Console.ReadLine());
 
             int[] array = new int[k];
 
-            Rect(0, array, n, k);
+            Rect(0, array);
         }
 
-        public static void Rect(int index,int[] array, int n, int k)
+        public static void Rect(int index, int[] array)
         {
-            if (index != k)
+            if (index != array.Length)
             {
                 for (int i = 1; i <= n; i++)
                 {
                     array[index] = i;
-                    Rect(index + 1, array, n, k);
+                    Rect(index + 1, array);
                 }
             }
             else
