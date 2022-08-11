@@ -37,7 +37,7 @@
                 Console.WriteLine("Please enter option number:");
                 string option = Console.ReadLine();
 
-                if (ValidateOption(option, options))
+                if (IsValidOption(option, options))
                 {
                     switch (option)
                     {
@@ -124,7 +124,7 @@
             }
         }
 
-        public static bool ValidateOption
+        public static bool IsValidOption
             (string option, Dictionary<string, string> options)
         {
             bool result = true;
