@@ -28,51 +28,76 @@
                 {"3", "Option 3: Solve the linear equation a * x + b = 0"}
             };
 
-            foreach (var item in options)
-            {
-                Console.WriteLine(item.Value);
-            }
-
             Console.WriteLine("Please enter option number:");
             string option = Console.ReadLine();
 
-            ValidateOption(option, options);
-
-            switch (option)
+            if (!ValidateOption(option, options))
             {
-                case "1":
-                    Console.WriteLine("Please enter integar to reverse:");
-                    string integer = Console.ReadLine();
+                Console.WriteLine("Invalid input, no such option!");
+            }
+            else
+            {
+                switch (option)
+                {
+                    case "1":
+                        Console.WriteLine("Please enter integar to reverse:");
+                        string integer = Console.ReadLine();
 
-                    ValidateIntegarRange(integer);
+                        if (ValidateIntegarRange(integer))
+                        {
+                            string reversed = ReverseIntegarNumberOrder(integer);
+                            Console.WriteLine($"The reverse integar is {reversed}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input, integar not in range!");
+                        }
 
-                    string reversed = ReverseIntegarNumberOrder(integer);
-                    Console.WriteLine($"The reverse integar is {reversed}");
-                    break;
+                        break;
 
-                case "2":
-                    Console.WriteLine("Please enter sequence of numbers:");
-                    string sequence = Console.ReadLine();
+                    case "2":
+                        Console.WriteLine("Please enter sequence of numbers:");
+                        string sequence = Console.ReadLine();
 
-                    ValidateSequence(sequence);
+                        if (ValidateSequence(sequence))
+                        {
+                            double average = CalculateAverageOfSequence(sequence);
+                            Console.WriteLine($"The average value is {average}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input, Sequence must not contain empty elements!");
+                        }
 
-                    double average = CalculateAverageOfSequence(sequence);
-                    Console.WriteLine($"The average value is {average}");
-                    break;
+                        break;
 
-                case "3":
-                    Console.WriteLine("Please enter coefficient a:");
-                    int a = int.Parse(Console.ReadLine());
+                    case "3":
+                        Console.WriteLine("Please enter coefficient a:");
+                        int a = int.Parse(Console.ReadLine());
 
-                    ValidateCoefficient(a);
+                        if (ValidateCoefficient(a))
+                        {
+                            Console.WriteLine("Please enter coefficient b:");
+                            int b = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("Please enter coefficient b:");
-                    int b = int.Parse(Console.ReadLine());
+                            double result = LinearEquation(a, b);
+                            Console.WriteLine($"The result is {result}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input, 'a' must be a non-zero!");
+                        }
 
-                    double result = LinearEquation(a, b);
-                    Console.WriteLine($"The result is {result}");
-                    break;
+                        break;
+                }
+            }
+        }
 
+        public static void PrintOptions(Dictionary<string, string> options)
+        {
+            foreach (var item in options)
+            {
+                Console.WriteLine(item.Value);
             }
         }
 
@@ -81,7 +106,7 @@
         {
             if (!options.ContainsKey(option))
             {
-                throw new ArgumentException("Invalid Option!");
+                return false;
             }
 
             return true;
@@ -89,7 +114,7 @@
 
         public static string ReverseIntegarNumberOrder(string integer)
         {
-            return new string 
+            return new string
                 (integer
                 .ToCharArray()
                 .Reverse()
@@ -102,7 +127,7 @@
 
             if (n < 1 || n > 50000000)
             {
-                throw new ArgumentOutOfRangeException("Integar not in correct Range!");
+                return false;
             }
 
             return true;
@@ -124,7 +149,7 @@
 
             if (split.Contains(" "))
             {
-                throw new ArgumentException("Sequence must not contain empty elements!");
+                return false;
             }
 
             return true;
@@ -139,7 +164,7 @@
         {
             if (a == 0)
             {
-                throw new ArgumentException("Invalid input 'a' must be a non-zero!");
+                return false;
             }
 
             return true;
