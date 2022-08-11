@@ -14,28 +14,24 @@
             int n = int.Parse(Console.ReadLine());
             int k = int.Parse(Console.ReadLine());
 
-            int[] array = Enumerable.Repeat(1, k).ToArray();
+            int[] array = new int[k];
 
-            for (int i = n - 1; i > 0; i--)
+            Rect(0, array, n, k);
+        }
+
+        public static void Rect(int index,int[] array, int n, int k)
+        {
+            if (index != k)
             {
-                if (i != n - 1)
+                for (int i = 1; i <= n; i++)
                 {
-                    array[i - 1]++;
+                    array[index] = i;
+                    Rect(index + 1, array, n, k);
                 }
-
-                while (array[i - 1] <= n)
-                {
-                    Console.WriteLine(String.Join(", ", array));
-                    array[i]++;
-
-                    if (array[i] > n)
-                    {
-                        array[i] = 1;
-                        array[i - 1]++;
-                    }
-                }
-
-                array = Enumerable.Repeat(1, k).ToArray();
+            }
+            else
+            {
+                Console.WriteLine(String.Join(", ", array));
             }
         }
     }
