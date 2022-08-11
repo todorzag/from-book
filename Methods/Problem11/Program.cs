@@ -28,68 +28,118 @@
                 {"3", "Option 3: Solve the linear equation a * x + b = 0"}
             };
 
+            bool running = true;
+
+            while (running)
+            {
+                PrintOptions(options);
+
+                Console.WriteLine("Please enter option number:");
+                string option = Console.ReadLine();
+
+                if (ValidateOption(option, options))
+                {
+                    switch (option)
+                    {
+                        case "1":
+                            try
+                            {
+                                Console.WriteLine("Please enter integar to reverse:");
+                                string integer = Console.ReadLine();
+
+                                ValidateIntegarRange(integer);
+
+                                string reversed = ReverseIntegarNumberOrder(integer);
+                                Console.WriteLine($"The reverse integar is {reversed}");
+
+                                running = false;
+                            }
+                            catch (ArgumentOutOfRangeException e)
+                            {
+                                Console.WriteLine(e.Message);
+                                running = AskTryAgain();
+                            }
+
+                            break;
+
+                        case "2":
+                            try
+                            {
+                                Console.WriteLine("Please enter sequence of numbers:");
+                                string sequence = Console.ReadLine();
+
+                                ValidateSequence(sequence);
+
+                                double average = CalculateAverageOfSequence(sequence);
+                                Console.WriteLine($"The average value is {average}");
+
+                                running = false;
+                            }
+                            catch (ArgumentException e)
+                            {
+                                Console.WriteLine(e.Message);
+                                running = AskTryAgain();
+                            }
+
+                            break;
+
+                        case "3":
+                            try
+                            {
+                                Console.WriteLine("Please enter coefficient a:");
+                                int a = int.Parse(Console.ReadLine());
+
+                                ValidateCoefficient(a);
+
+                                Console.WriteLine("Please enter coefficient b:");
+                                int b = int.Parse(Console.ReadLine());
+
+                                double result = LinearEquation(a, b);
+                                Console.WriteLine($"The result is {result}");
+
+                                running = false;
+                            }
+                            catch (ArgumentException e)
+                            {
+                                Console.WriteLine(e.Message);
+                                running = AskTryAgain();
+                            }
+
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input, no such option!");
+                    running = AskTryAgain();
+                }
+            }
+        }
+
+        public static void PrintOptions(Dictionary<string, string> options)
+        {
             foreach (var item in options)
             {
                 Console.WriteLine(item.Value);
-            }
-
-            Console.WriteLine("Please enter option number:");
-            string option = Console.ReadLine();
-
-            ValidateOption(option, options);
-
-            switch (option)
-            {
-                case "1":
-                    Console.WriteLine("Please enter integar to reverse:");
-                    string integer = Console.ReadLine();
-
-                    ValidateIntegarRange(integer);
-
-                    string reversed = ReverseIntegarNumberOrder(integer);
-                    Console.WriteLine($"The reverse integar is {reversed}");
-                    break;
-
-                case "2":
-                    Console.WriteLine("Please enter sequence of numbers:");
-                    string sequence = Console.ReadLine();
-
-                    ValidateSequence(sequence);
-
-                    double average = CalculateAverageOfSequence(sequence);
-                    Console.WriteLine($"The average value is {average}");
-                    break;
-
-                case "3":
-                    Console.WriteLine("Please enter coefficient a:");
-                    int a = int.Parse(Console.ReadLine());
-
-                    ValidateCoefficient(a);
-
-                    Console.WriteLine("Please enter coefficient b:");
-                    int b = int.Parse(Console.ReadLine());
-
-                    double result = LinearEquation(a, b);
-                    Console.WriteLine($"The result is {result}");
-                    break;
-
             }
         }
 
         public static bool ValidateOption
             (string option, Dictionary<string, string> options)
         {
+            bool result = true;
+
             if (!options.ContainsKey(option))
             {
-                throw new ArgumentException("Invalid Option!");
+                result = false;
             }
 
-            return true;
+            return result;
         }
 
         public static string ReverseIntegarNumberOrder(string integer)
         {
-            return new string 
+            return new string
                 (integer
                 .ToCharArray()
                 .Reverse()
@@ -102,7 +152,7 @@
 
             if (n < 1 || n > 50000000)
             {
-                throw new ArgumentOutOfRangeException("Integar not in correct Range!");
+                throw new ArgumentOutOfRangeException("Must be in range 1 - 50,000,000!");
             }
 
             return true;
@@ -143,6 +193,22 @@
             }
 
             return true;
+        }
+
+        public static bool AskTryAgain()
+        {
+            bool result = false;
+
+            Console.WriteLine("Would you like to try again?");
+            string answer = Console.ReadLine();
+
+            if (answer == "yes")
+            {
+                Console.Clear();
+                result = true;
+            }
+
+            return result;
         }
     }
 }
