@@ -18,7 +18,6 @@
 
         static List<string> path =
             new List<string>();
-        static int position = 0;
 
         static void Main(string[] args)
         {
