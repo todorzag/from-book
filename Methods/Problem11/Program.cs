@@ -40,56 +40,40 @@
 
                 if (isValidOption)
                 {
-                    switch (option)
+                    try
                     {
-                        case "1":
-                            try
-                            {
-                                ReverseIntegarHandler();
-                                running = false;
-                            }
-                            catch (ArgumentOutOfRangeException e)
-                            {
-                                Console.WriteLine(e.Message);
-                                running = AskTryAgain();
-                            }
-
-                            break;
-
-                        case "2":
-                            try
-                            {
-                                AverageOfSequenceHandler();
-                                running = false;
-                            }
-                            catch (ArgumentException e)
-                            {
-                                Console.WriteLine(e.Message);
-                                running = AskTryAgain();
-                            }
-
-                            break;
-
-                        case "3":
-                            try
-                            {
-                                LinearEquationHandler();
-                                running = false;
-                            }
-                            catch (ArgumentException e)
-                            {
-                                Console.WriteLine(e.Message);
-                                running = AskTryAgain();
-                            }
-
-                            break;
+                        OptionHandler(option);
+                        
+                    }
+                    catch (ArgumentException e)
+                    {
+                        Console.WriteLine(e.Message);
                     }
                 }
                 else
                 {
                     Console.WriteLine("Invalid input, no such option!");
-                    running = AskTryAgain();
                 }
+
+                running = AskTryAgain();
+            }
+        }
+
+        public static void OptionHandler(string option)
+        {
+            switch (option)
+            {
+                case "1":
+                    ReverseIntegarHandler();
+                    break;
+
+                case "2":
+                    AverageOfSequenceHandler();
+                    break;
+
+                case "3":
+                    LinearEquationHandler();
+                    break;
             }
         }
 
@@ -131,7 +115,7 @@
 
             if (n < 1 || n > 50000000)
             {
-                throw new ArgumentOutOfRangeException("Must be in range 1 - 50,000,000!");
+                throw new ArgumentException("Must be in range 1 - 50,000,000!");
             }
 
             return true;
