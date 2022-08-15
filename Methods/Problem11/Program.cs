@@ -36,22 +36,16 @@
 
                 Console.WriteLine("Please enter option number:");
                 string option = Console.ReadLine();
+                bool isValidOption = ValidateOption(option, options);
 
-                if (IsValidOption(option, options))
+                if (isValidOption)
                 {
                     switch (option)
                     {
                         case "1":
                             try
                             {
-                                Console.WriteLine("Please enter integar to reverse:");
-                                string integer = Console.ReadLine();
-
-                                ValidateIntegarRange(integer);
-
-                                string reversed = ReverseIntegarNumberOrder(integer);
-                                Console.WriteLine($"The reverse integar is {reversed}");
-
+                                ReverseIntegarHandler();
                                 running = false;
                             }
                             catch (ArgumentOutOfRangeException e)
@@ -65,14 +59,7 @@
                         case "2":
                             try
                             {
-                                Console.WriteLine("Please enter sequence of numbers:");
-                                string sequence = Console.ReadLine();
-
-                                ValidateSequence(sequence);
-
-                                double average = CalculateAverageOfSequence(sequence);
-                                Console.WriteLine($"The average value is {average}");
-
+                                AverageOfSequenceHandler();
                                 running = false;
                             }
                             catch (ArgumentException e)
@@ -86,17 +73,7 @@
                         case "3":
                             try
                             {
-                                Console.WriteLine("Please enter coefficient a:");
-                                int a = int.Parse(Console.ReadLine());
-
-                                ValidateCoefficient(a);
-
-                                Console.WriteLine("Please enter coefficient b:");
-                                int b = int.Parse(Console.ReadLine());
-
-                                double result = LinearEquation(a, b);
-                                Console.WriteLine($"The result is {result}");
-
+                                LinearEquationHandler();
                                 running = false;
                             }
                             catch (ArgumentException e)
@@ -124,26 +101,28 @@
             }
         }
 
-        public static bool IsValidOption
+        public static bool ValidateOption
             (string option, Dictionary<string, string> options)
         {
-            bool result = true;
+            bool result = false;
 
-            if (!options.ContainsKey(option))
+            if (options.ContainsKey(option))
             {
-                result = false;
+                result = true;
             }
 
             return result;
         }
 
-        public static string ReverseIntegarNumberOrder(string integer)
+        public static void ReverseIntegarHandler()
         {
-            return new string
-                (integer
-                .ToCharArray()
-                .Reverse()
-                .ToArray());
+            Console.WriteLine("Please enter integar to reverse:");
+            string integer = Console.ReadLine();
+
+            ValidateIntegarRange(integer);
+
+            string reversed = ReverseIntegarNumberOrder(integer);
+            Console.WriteLine($"The reverse integar is {reversed}");
         }
 
         public static bool ValidateIntegarRange(string integar)
@@ -156,7 +135,26 @@
             }
 
             return true;
+        }
 
+        public static string ReverseIntegarNumberOrder(string integer)
+        {
+            return new string
+                (integer
+                .ToCharArray()
+                .Reverse()
+                .ToArray());
+        }
+
+        public static void AverageOfSequenceHandler()
+        {
+            Console.WriteLine("Please enter sequence of numbers:");
+            string sequence = Console.ReadLine();
+
+            ValidateSequence(sequence);
+
+            double average = CalculateAverageOfSequence(sequence);
+            Console.WriteLine($"The average value is {average}");
         }
 
         // If input is directly an array validate's if (array.Lenght == 0)
@@ -180,7 +178,21 @@
             return true;
         }
 
-        public static double LinearEquation(int a, int b)
+        public static void LinearEquationHandler()
+        {
+            Console.WriteLine("Please enter coefficient a:");
+            int a = int.Parse(Console.ReadLine());
+
+            ValidateCoefficient(a);
+
+            Console.WriteLine("Please enter coefficient b:");
+            int b = int.Parse(Console.ReadLine());
+
+            double result = CalculateLinearEquation(a, b);
+            Console.WriteLine($"The result is {result}");
+        }
+
+        public static double CalculateLinearEquation(int a, int b)
         {
             return b / a;
         }
@@ -200,9 +212,9 @@
             bool result = false;
 
             Console.WriteLine("Would you like to try again?");
-            string answer = Console.ReadLine();
+            var answer = Console.ReadLine();
 
-            if (answer == "yes")
+            if (answer == "Y")
             {
                 Console.Clear();
                 result = true;
