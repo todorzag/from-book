@@ -10,42 +10,18 @@ namespace Problem13
               Write a method that calculates the sum of two polynomials with integer
               coefficients, for example: (3x2 + x - 3) + (x - 1) = (3x2 + 2x - 4).
              */
+            string input1 = Console.ReadLine();
+            string input2 = Console.ReadLine();
 
-            string input = Console.ReadLine();
+            int[] polynomial1 = GetCoefficients(input1);
+            int[] polynomial2 = GetCoefficients(input2);
 
-            string[] polynomialsString = input.Split(
-                new string[] { "(", ")" },
-                StringSplitOptions.RemoveEmptyEntries);
+            int[] sum = CalculateSum(polynomial1, polynomial2);
 
-            List<int[]> ints = PolynomialsToArray(polynomialsString);
-
-            int[] polynomial1 = ints[0];
-            int[] polynomial2 = ints[1];
-
-            int max = Math.Max(
-                polynomial1.Length,   
-                polynomial2.Length);
-
-            int[] sum = new int[max];
-
-            CalculateSum(sum, polynomial1);
-            CalculateSum(sum, polynomial2);
-
-            Console.WriteLine(ReturnPolynomialString(sum));
+            Console.WriteLine($"{input1} + {input2} = {PrintPolynomial(sum)}");
         }
 
-        public static List<int[]> PolynomialsToArray(string[] polynomials)
-        {
-            List<int[]> listOfPolynomialsArray = new List<int[]>
-            {
-                GetIndividual(polynomials[0]),
-                GetIndividual(polynomials[2])
-            };
-
-            return listOfPolynomialsArray;
-        }
-
-        public static int[] GetIndividual(string polynomial)
+        public static int[] GetCoefficients(string polynomial)
         {
             string[] individual = polynomial.Split(" ");
 
@@ -74,78 +50,50 @@ namespace Problem13
             return ints.ToArray();
         }
 
-        public static void CalculateSum(int[] sum, int[] polynomial)
+        public static int[] CalculateSum(int[] polynomial1, int[] polynomial2)
         {
-            for (int i = 0; i < polynomial.Length; i++)
+            int max = Math.Max(
+                polynomial1.Length,
+                polynomial2.Length);
+
+            int[] sum = new int[max];
+
+            for (int i = 0; i < polynomial1.Length; i++)
             {
-                if (sum[i] == 0)
-                {
-                    sum[i] = polynomial[i];
-                }
-                else
-                {
-                    sum[i] += polynomial[i];
-                }
+                sum[i] += polynomial1[i];
             }
+
+            for (int i = 0; i < polynomial2.Length; i++)
+            {
+                sum[i] += polynomial2[i];
+            }
+
+            return sum;
         }
 
-        public static string ReturnPolynomialString(int[] polynomial)
+        public static string PrintPolynomial(int[] polynomial)
         {
             StringBuilder result = new StringBuilder();
 
             for (int i = polynomial.Length - 1; i >= 0; i--)
             {
+                if (polynomial[i] < 0)
+                {
+                    polynomial[i] *= -1;
+                    result.Append(" - ");
+                }
+                else if (polynomial[i] > 0) 
+                {
+                    result.Append(" + ");
+                }
+
                 if (polynomial[i] != 0)
                 {
-                    result.Append(ReturnIndividualString(polynomial, i));
-
-                    result.Append(AddOperator(polynomial, i));
-
+                    result.Append($"{polynomial[i]}x{i}");
                 }  
             }
 
             return $"({result})";
-        }
-
-        public static string ReturnIndividualString(int[] polynomial, int i)
-        {
-            if (polynomial[i] < 0)
-            {
-                polynomial[i] *= -1;
-            }
-
-            switch (i)
-            {
-                case 0:
-                    return $"{polynomial[i]}";
-
-                case 1:
-                    return polynomial[i] == 1 
-                        ? $"x"
-                        : $"{polynomial[i]}x";
-
-                default:
-                    return polynomial[i] == 1
-                        ? $"x{i}"  
-                        : $"{polynomial[i]}x{i}";
-            }
-        }
-
-        public static string AddOperator(int[] polynomial, int i)
-        {
-            if (i != 0)
-            {
-                if (polynomial[i - 1] > 0)
-                {
-                    return " + ";
-                }
-                else if (polynomial[i - 1] < 0)
-                {
-                    return " - ";
-                }
-            }
-
-            return string.Empty;
         }
     }
 }
