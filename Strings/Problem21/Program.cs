@@ -13,19 +13,15 @@ namespace Problem21
 
             string[] text = Console.ReadLine().Split(" ");
 
-            string result = string.Empty;
-
             foreach (string line in text)
             {
                 string reversed = new string (line.ToCharArray().Reverse().ToArray());
 
                 if (line.ToLower() == reversed.ToLower())
                 {
-                    result += $"{line} ";
+                    Console.Write(line + " ");
                 }
             }
-
-            Console.WriteLine(result);
         }
     }
 }
