@@ -1,4 +1,4 @@
-﻿namespace Problem22
+﻿namespace School
 {
     internal class Program
     {
@@ -14,7 +14,7 @@
            constructors.
            */
 
-            List<Student> students = GetStudents();
+            List<Student> students = GenerateStudents();
             List<Teacher> teachers = GetTeachers();
             List<SchoolClass> schoolClasses = GetSchoolClasses(teachers);
 
@@ -23,12 +23,10 @@
             school.PrintSchoolInfo();
         }
 
-        public static bool ValidateStudent(int studentNumber,
-            string studentName,
-            List<Student> students)
+        public static bool Validate(Student student, List<Student> students)
         {
-            Student student = students
-                .Find(student => student.NumberInClass == studentNumber);
+            Student toCheck = students
+                .Find(x => x.NumberInClass == student.NumberInClass);
 
             if (student != null)
             {
@@ -50,28 +48,40 @@
             schoolClass.Teachers.Add(teacher);
         }
 
-        public static List<Student> GetStudents()
+        /* List<Tuple> inputStudents = GetInputStudents();
+         * List<Student> students = GenerateStudents(inputStudents) =>
+         *   - Validate(student, students)
+         */
+        public static List<Student> GenerateStudents()
         {
             List<Student> students = new List<Student>();
 
             Console.WriteLine("Please enter student name and number:");
-            string line = Console.ReadLine();
+            string input = Console.ReadLine();
 
-            while (line != "End of students")
+            while (input != "End of students")
             {
-                string[] split = line.Split(" ");
-                string studentName = split[0];
-                int studentNumber = int.Parse(split[1]);
+                string[] inputSplit = input.Split(" ");
 
-                if (ValidateStudent(studentNumber, studentName, students))
+                Student student = CreateStudent(inputSplit);
+
+                if (Validate(student, students))
                 {
-                    students.Add(new Student(studentNumber, studentName);
+                    students.Add(student);
                 }
 
-                line = Console.ReadLine();
+                input = Console.ReadLine();
             }
 
             return students;
+        }
+
+        public static Student CreateStudent(string[] inputSplit)
+        {
+            string studentName = inputSplit[0];
+            int studentNumber = int.Parse(inputSplit[1]);
+
+            return new Student(studentNumber, studentName);
         }
 
         public static List<Teacher> GetTeachers()

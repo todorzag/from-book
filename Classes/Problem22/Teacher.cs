@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Problem22
+namespace School
 {
     internal class Teacher
     {
         public string Name { get; }
         public List<Discipline> Disciplines { get; }
 
-        public Teacher (string name, List<Discipline> disciplines)
+        public Teacher(string name, List<Discipline> disciplines)
         {
             Name = name;
             Disciplines = disciplines;

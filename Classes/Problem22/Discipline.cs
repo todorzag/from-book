@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Problem22
+namespace School
 {
     internal class Discipline
     {
@@ -12,7 +12,7 @@ namespace Problem22
         public int NumberOfLessons { get; }
         public int NumberOfExercises { get; }
 
-        public Discipline (string name, int lessons, int exercises)
+        public Discipline(string name, int lessons, int exercises)
         {
             Name = name;
             NumberOfLessons = lessons;
@@ -21,13 +21,13 @@ namespace Problem22
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder disciplineString = new StringBuilder();
 
-            sb.Append($" Name: {Name}\n");
-            sb.Append($" Number of Lessons: {NumberOfLessons}\n");
-            sb.Append($" Number of Exercises: {NumberOfExercises}");
+            disciplineString.AppendLine($" Name: {Name}");
+            disciplineString.AppendLine($" Number of Lessons: {NumberOfLessons}");
+            disciplineString.AppendLine($" Number of Exercises: {NumberOfExercises}");
 
-            return sb.ToString();
+            return disciplineString.ToString();
         }
     }
 }

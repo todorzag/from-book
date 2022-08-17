@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Problem22
+namespace School
 {
     internal class SchoolClass
     {
@@ -17,10 +17,10 @@ namespace Problem22
             Teachers = new List<Teacher>();
         }
 
-        public SchoolClass (string name, List<Teacher> teachers)
+        public SchoolClass(string name, List<Teacher> teachers)
         {
             Name = name;
-            Teachers = teachers; 
+            Teachers = teachers;
         }
 
         public override string ToString()

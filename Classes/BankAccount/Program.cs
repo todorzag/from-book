@@ -21,17 +21,20 @@
         private static decimal ValidateAmount()
         {
             decimal amount = int.MinValue;
-            try
-            {
-                amount = decimal.Parse(Console.ReadLine());
-            }
-            catch (ArgumentException e)
-            {
-                Console.WriteLine("Please enter a numeric value!");
-                ValidateAmount();
-            }
 
-            return amount;
+            while (true)
+            {
+                try
+                {
+                    amount = decimal.Parse(Console.ReadLine());
+
+                    return amount;
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine("Please enter a numeric value!");
+                }
+            }
         }
 
         private static void TransactionHandler(BankAccount account)
@@ -79,16 +82,20 @@
 
         private static string ValidateTransactionType(string transactionType)
         {
-            if (transactionType != "Deposit" && transactionType != "Withdrawal")
+            while (true)
             {
-                Console.WriteLine("Please enter valid transaction type!");
-                Console.WriteLine("Deposit or Withdrawal");
+                if (transactionType != "Deposit" && transactionType != "Withdrawal")
+                {
+                    Console.WriteLine("Please enter valid transaction type!");
+                    Console.WriteLine("Deposit or Withdrawal");
 
-                transactionType = Console.ReadLine();
-                ValidateTransactionType(transactionType);
+                    transactionType = Console.ReadLine();
+                }
+                else
+                {
+                    return transactionType;
+                }
             }
-
-            return transactionType;
         }
     }
 }

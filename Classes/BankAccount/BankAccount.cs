@@ -32,11 +32,6 @@ namespace BankAccount
 
         public virtual void PerformEndOfMonthTransactions() { }
 
-        private void GenerateRandomAccountSeed()
-        {
-            Random random = new Random();
-            accountNumberSeed = random.Next(0, 1000000);
-        }
 
         public void MakeDeposit(decimal amount, string note)
         {
@@ -90,21 +85,23 @@ namespace BankAccount
 
         public string GetAccountHistory()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder accountHistory = new StringBuilder();
 
             foreach (var transaction in _allTransactions)
             {
-
-                sb.Append($"A {transaction.Type} was made on: {transaction.Date}\n");
-
-                sb.Append($"For: {(transaction.Amount < 0
+                decimal transactionAmount = 
+                    transaction.Amount < 0
                     ? transaction.Amount * -1
-                    : transaction.Amount)}\n");
+                    : transaction.Amount;
 
-                sb.Append($"Note: {transaction.Note}\n");
+                accountHistory.AppendLine($"A {transaction.Type} was made on: {transaction.Date}");
+
+                accountHistory.AppendLine($"For: {transactionAmount}");
+
+                accountHistory.AppendLine($"Note: {transaction.Note}");
             }
 
-            return sb.ToString();
+            return accountHistory.ToString();
         }
 
         public BankAccount(string name, decimal initialBalance)
@@ -112,7 +109,7 @@ namespace BankAccount
 
         public BankAccount(string name, decimal initialBalance, decimal minimumBalance)
         {
-            GenerateRandomAccountSeed();
+            accountNumberSeed++;
             Number = accountNumberSeed.ToString();
 
             Owner = name;
