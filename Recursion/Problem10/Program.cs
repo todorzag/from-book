@@ -26,7 +26,10 @@
 
         static void FindPath(int row, int col, string direction)
         {
-            if (row < 0 || col < 0 || col >= lab.GetLength(1) || row >= lab.GetLength(0))
+            bool outOfBoundsRow = row < 0 || row >= lab.GetLength(0);
+            bool outOfBoundsCol = col < 0 || col >= lab.GetLength(1);
+
+            if (outOfBoundsCol || outOfBoundsRow)
             {
                 return;
             }
